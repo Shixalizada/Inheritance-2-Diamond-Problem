@@ -1,32 +1,63 @@
-# Prerequisites
-*.d
+#include<iostream>
+using namespace std;
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+enum VehicleType { CarType, PickupType };
 
-# Precompiled Headers
-*.gch
-*.pch
+class Car {
+public:
+    int id;
+    string brand;
+    string model;
+    int year;
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+    void drive() {
+        cout << "Driving a car..." << endl;
+    }
 
-# Fortran module files
-*.mod
-*.smod
+    void playRadio() {
+        cout << "Playing car radio..." << endl;
+    }
+};
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+class Pickup {
+public:
+    int id;
+    string brand;
+    string model;
+    int loadCapacity;
 
-# Executables
-*.exe
-*.out
-*.app
+    void drive() {
+        cout << "Driving a pickup truck..." << endl;
+    }
+
+    void tow() {
+        cout << "Towing with the pickup..." << endl;
+    }
+};
+
+class VehicleService : public Car, public Pickup {
+public:
+    void drive(VehicleType type) {
+        switch (type)
+        {
+        case CarType:
+            Car::drive();
+            break;
+        case PickupType:
+            Pickup::drive();
+            break;
+        default:
+            cout << "Unknown vehicle type." << endl;
+            break;
+        }
+    }
+};
+
+void main() {
+    VehicleService vehicle;
+
+    vehicle.drive(CarType);      
+    vehicle.playRadio();         
+    vehicle.tow();               
+
+}
